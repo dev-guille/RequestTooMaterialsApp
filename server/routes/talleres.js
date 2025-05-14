@@ -4,48 +4,24 @@ const Taller = require('../models/taller');
 const nodemailer = require('nodemailer');
 
 
-
-// Ruta para enviar los datos de la tabla por correo
-router.post('/:id/solicitud/:solicitudIndex/enviar-correo', async (req, res) => {
-    const { id, solicitudIndex } = req.params;
-
-    try {
-        const taller = await Taller.findById(id);
-        if (!taller) return res.status(404).json({ message: 'Taller no encontrado' });
-
-        const solicitud = taller.solicitudes[solicitudIndex];
-        if (!solicitud) return res.status(404).json({ message: 'Solicitud no encontrada' });
-
-        const materiales = solicitud.materiales;
-        const correoEncargado = taller.correoEncargado;
-
-        // ... Aquí va la lógica para armar el HTML del correo como ya lo tienes
-        // y luego enviar el correo usando nodemailer
-
-    } catch (error) {
-        res.status(500).json({ message: 'Error al enviar el correo', error: error.message });
+// Configura el transporte de correo
+const transporter = nodemailer.createTransport({
+    service: 'outlook', // O el servicio que uses
+    auth: {
+        user: process.env.EMAIL_USER, // Correo de origen
+        pass: process.env.EMAIL_PASS, // Contraseña del correo de origen
     }
 });
-    const { id, solicitudes } = req.body;
 
-    // Configura el transporte de correo
-    const transporter = nodemailer.createTransport({
-        service: 'outlook', // O el servicio que uses
-        auth: {
-            user: process.env.EMAIL_USER, // Correo de origen
-            pass: process.env.EMAIL_PASS, // Contraseña del correo de origen
-        }
-    });
+// Ruta para enviar los datos de la tabla por correo
+router.post('/enviar-correo', async (req, res) => {
+    const { solicitudes } = req.body;
 
      try {
 
         if (!solicitudes || !Array.isArray(solicitudes)) {
             return res.status(400).json({ message: 'No hay solicitudes para enviar' });
         }
-
-        const taller = await Taller.findById(id);
-        if (!taller) return res.status(404).json({ message: 'Taller no encontrado' });
-        const correoEncargado = taller.correoEncargado;
 
         // Crear el cuerpo del correo con los datos de la tabla
         /* let cuerpoCorreo = 'Solicitudes de Materiales:\n\n';
