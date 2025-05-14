@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestión de Talleres</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Gestión de Talleres</h1>
+
+    <!-- Selección de taller -->
+    <label for="taller">Seleccionar Taller:</label>
+    <select id="taller"></select>
+
+    <!-- Información del taller seleccionado -->
+    <div id="infoTaller">
+        <p><strong>Encargado del taller:</strong> <span id="encargadoTaller"></span></p>
+    </div>
+
+    <div class="contenedor-flex">
+        <!-- Lista de solicitudes -->
+        <div class="lista-solicitudes">
+            <h2 class="subTitulo-SM">Solicitudes de Materiales</h2>
+            <table id="tablaSolicitudes">
+                <thead>
+                    <tr>
+                        <th>Material</th>
+                        <th>Cantidad</th>
+                        <th>Estado</th>
+                        <th>Fecha Solicitud</th>
+                        <th>Eliminar</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+
+              <!-- Botón para enviar un correo con los datos de la tabla -->
+            <div class="contenedor-btn">
+                <div class="enviar-correo">
+                    <button onclick="enviarCorreo()">Enviar Datos por Correo</button>
+                </div>
+                <div class="limpiar-solicitudes">
+                    <button onclick="eliminarSolicitud()">Limpiar Solicitudes</button>
+                </div>
+            </div>
+              
+        </div>
+
+        <!-- Formulario para agregar una solicitud -->
+        <div class="formulario-solicitud">
+            <h2 class="subTitulo-SM">Agregar Nueva Solicitud</h2>
+            <input type="text" id="material" placeholder="Nombre del material" required>
+            <input type="number" id="cantidad" placeholder="Cantidad" required min="1">
+            <button onclick="agregarSolicitud()">Enviar Solicitud</button>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
