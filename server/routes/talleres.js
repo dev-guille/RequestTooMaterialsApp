@@ -244,8 +244,8 @@ router.post('/enviar-correo', enviarCorreo, async (req, res) => {
          // Configurar los datos del correo
         const mailOptions = {
             from: process.env.EMAIL_USER,  // Correo de origen
-            //to: 'nelson.guillermo@outlook.com',   // Correo del encargado (puedes usar la variable que quieras)
-            to: taller.correoEncargado,
+            to: 'nelson.guillermo@outlook.com',   // Correo del encargado (puedes usar la variable que quieras)
+            //to: taller.correoEncargado,
             subject: 'Datos de Solicitudes de Materiales',
             /* text: cuerpoCorreo */
             html: cuerpoCorreo // Aquí se utiliza el cuerpo con formato HTML
