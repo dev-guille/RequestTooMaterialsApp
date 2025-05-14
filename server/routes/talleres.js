@@ -125,21 +125,21 @@ const transporter = nodemailer.createTransport({
 });
 
 // Ruta para enviar los datos de la tabla por correo
-router.post('/api/talleres/enviar-correo', async (req, res) => {
+router.post('/enviar-correo', async (req, res) => {
     const { solicitudes } = req.body;
 
      try {
 
-    if (!solicitudes || !Array.isArray(solicitudes)) {
-        return res.status(400).json({ message: 'No hay solicitudes para enviar' });
-    }
+        if (!solicitudes || !Array.isArray(solicitudes)) {
+            return res.status(400).json({ message: 'No hay solicitudes para enviar' });
+        }
 
-    // Crear el cuerpo del correo con los datos de la tabla
-    /* let cuerpoCorreo = 'Solicitudes de Materiales:\n\n';
-    solicitudes.forEach(solicitud => {
-        cuerpoCorreo += `Material: ${solicitud.material}\nCantidad: ${solicitud.cantidad}\nEstado: ${solicitud.estado}\n\n`;
-    }); */
-    // Crear el cuerpo del correo con los datos de la tabla en formato HTML
+        // Crear el cuerpo del correo con los datos de la tabla
+        /* let cuerpoCorreo = 'Solicitudes de Materiales:\n\n';
+        solicitudes.forEach(solicitud => {
+            cuerpoCorreo += `Material: ${solicitud.material}\nCantidad: ${solicitud.cantidad}\nEstado: ${solicitud.estado}\n\n`;
+        }); */
+        // Crear el cuerpo del correo con los datos de la tabla en formato HTML
         // Crear el cuerpo del correo con los datos de la tabla en formato HTML
         let cuerpoCorreo = `
         <html>
