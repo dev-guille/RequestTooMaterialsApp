@@ -4,14 +4,7 @@ const Taller = require('../models/taller');
 const nodemailer = require('nodemailer');
 
 
-// Configura el transporte de correo
-const transporter = nodemailer.createTransport({
-    service: 'outlook', // O el servicio que uses
-    auth: {
-        user: process.env.EMAIL_USER, // Correo de origen
-        pass: process.env.EMAIL_PASS, // Contraseña del correo de origen
-    }
-});
+
 
 // Ruta para enviar los datos de la tabla por correo
 router.post('/enviar-correo', async (req, res) => {
@@ -22,6 +15,15 @@ router.post('/enviar-correo', async (req, res) => {
         if (!solicitudes || !Array.isArray(solicitudes)) {
             return res.status(400).json({ message: 'No hay solicitudes para enviar' });
         }
+
+        // Configura el transporte de correo
+        const transporter = nodemailer.createTransport({
+            service: 'outlook', // O el servicio que uses
+            auth: {
+                user: process.env.EMAIL_USER, // Correo de origen
+                pass: process.env.EMAIL_PASS, // Contraseña del correo de origen
+            }
+        });
 
         // Crear el cuerpo del correo con los datos de la tabla
         /* let cuerpoCorreo = 'Solicitudes de Materiales:\n\n';
