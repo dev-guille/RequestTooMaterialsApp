@@ -128,9 +128,9 @@ const transporter = nodemailer.createTransport({
 router.post('/enviar-correo', async (req, res) => {
     const { tallerId, solicitudes } = req.body;
 
-    if (!solicitudes || solicitudes.length === 0) {
+    /* if (!solicitudes || solicitudes.length === 0) {
         return res.status(400).json({ message: 'No se encontraron solicitudes para enviar.' });
-    }
+    } */
 
     try {
         // Buscar el taller por ID
@@ -139,7 +139,6 @@ router.post('/enviar-correo', async (req, res) => {
             return res.status(404).json({ message: 'Taller no encontrado' });
         }
 
-        const correoEncargado = taller.correoEncargado;
 
     // Crear el cuerpo del correo con los datos de la tabla
     /* let cuerpoCorreo = 'Solicitudes de Materiales:\n\n';
@@ -252,7 +251,7 @@ router.post('/enviar-correo', async (req, res) => {
     // Configurar los datos del correo
     const mailOptions = {
         from: process.env.EMAIL_USER,  // Correo de origen
-        to: correoEncargado, 
+        to: taller.correoEncargado, 
         //to: 'nelson.guillermo@outlook.com',   // Correo del encargado (puedes usar la variable que quieras)
         subject: 'Datos de Solicitudes de Materiales',
         /* text: cuerpoCorreo */

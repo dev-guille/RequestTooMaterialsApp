@@ -1,10 +1,3 @@
-const express = require('express');
-const app = express();
-const tallerRoutes = require('./routes/talleres'); // Asegúrate de que este path sea correcto
-
-app.use(express.json());
-app.use('/api/talleres', tallerRoutes);
-
 
 const API_URL = 'https://requesttoomaterialsapp.onrender.com/api/talleres';
 //const API_URL = 'http://localhost:3000/api/talleres';
