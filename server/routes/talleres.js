@@ -126,17 +126,14 @@ const transporter = nodemailer.createTransport({
 
 // Ruta para enviar los datos de la tabla por correo
 router.post('/:id/enviar-correo', async (req, res) => {
-    const { id } = req.params;  // <-- Asegura esto
+    const tallerId = req.params.id;
     const { solicitudes } = req.body;
 
-    // Buscar el taller
-        const taller = await Taller.findById(id);
+     try {
+        const taller = await Taller.findById(tallerId);
         if (!taller) {
             return res.status(404).json({ message: 'Taller no encontrado' });
         }
-
-        // Obtener el encargado directamente del taller
-        const correo = taller.correoEncargado;
 
     if (!solicitudes || !Array.isArray(solicitudes)) {
         return res.status(400).json({ message: 'No hay solicitudes para enviar' });
@@ -248,12 +245,12 @@ router.post('/:id/enviar-correo', async (req, res) => {
 
 
     // Enviar el correo
-    try {
+    
          // Configurar los datos del correo
         const mailOptions = {
             from: process.env.EMAIL_USER,  // Correo de origen
             //to: 'nelson.guillermo@outlook.com',   // Correo del encargado (puedes usar la variable que quieras)
-            to: correo,
+            to: taller.correoEncargado,
             subject: 'Datos de Solicitudes de Materiales',
             /* text: cuerpoCorreo */
             html: cuerpoCorreo // Aquí se utiliza el cuerpo con formato HTML
