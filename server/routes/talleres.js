@@ -125,8 +125,8 @@ const transporter = nodemailer.createTransport({
 });
 
 // Ruta para enviar los datos de la tabla por correo
-router.post('/:id/enviar-correo', async (req, res) => {
-    const { solicitudes } = req.body;
+router.post('/enviar-correo', async (req, res) => {
+    const { id, solicitudes } = req.body;
 
     // Buscar el taller
         const taller = await Taller.findById(id);

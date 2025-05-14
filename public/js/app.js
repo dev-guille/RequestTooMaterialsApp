@@ -104,6 +104,7 @@ async function agregarSolicitud() {
 
 // Función para enviar los datos de la tabla por correo
 function enviarCorreo() {
+    const tallerId = document.getElementById("taller").value;
     const filas = document.querySelectorAll('#tablaSolicitudes tbody tr');
     const datosTabla = [];
 
@@ -131,7 +132,9 @@ function enviarCorreo() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ solicitudes: datosTabla })
+        body: JSON.stringify({ 
+            id: tallerId,
+            solicitudes: datosTabla })
     })
     .then(response => response.json())
     .then(data => {
