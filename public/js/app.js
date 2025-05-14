@@ -109,7 +109,8 @@ async function agregarSolicitud() {
 function enviarCorreo() {
     const filas = document.querySelectorAll('#tablaSolicitudes tbody tr');
     const datosTabla = [];
-    const tallerId = document.getElementById("taller").value;
+    
+    //const tallerId = document.getElementById("taller").value;
 
     // Recorrer todas las filas de la tabla
     filas.forEach(fila => {
@@ -135,7 +136,7 @@ function enviarCorreo() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ tallerId, solicitudes: datosTabla })
+        body: JSON.stringify({ solicitudes: datosTabla })
     })
     .then(response => response.json())
     .then(data => {
