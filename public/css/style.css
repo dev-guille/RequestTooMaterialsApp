@@ -175,79 +175,84 @@ button {
     min-width: 280px;
 }
 
-/* Responsive: tablas móviles */
-@media (max-width: 600px) {
-    table, thead, tbody, th, td, tr {
-        display: block;
-    }
+/* Reemplaza los siguientes bloques @media por este nuevo conjunto */
 
-    thead {
-        display: none;
-    }
-
-    tbody tr {
-        margin-bottom: 15px;
-        border-bottom: 2px solid #ccc;
-    }
-
-    tbody td {
-        padding: 10px;
-        text-align: right;
-        position: relative;
-    }
-
-    tbody td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 10px;
-        font-weight: bold;
-        text-transform: capitalize;
-    }
-}
-
-/* Responsive: adaptar estructura en pantallas pequeñas */
 @media (max-width: 768px) {
     .contenedor-flex {
         flex-direction: column;
+        gap: 15px;
+    }
+
+    .formulario-solicitud,
+    .lista-solicitudes {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
     }
 
     body {
         padding: 10px;
-        font-size: 14px;
+        font-size: 15px;
     }
 
     h1, .subTitulo-SM {
-        font-size: 20px;
+        font-size: 22px;
         margin-bottom: 15px;
     }
 
     label, select {
+        font-size: 15px;
+    }
+
+    .contenedor-btn {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .contenedor-btn button {
+        width: auto;
+        padding: 10px 15px;
         font-size: 14px;
     }
 
-    #formularioSolicitud,
-    .formulario-solicitud,
-    .lista-solicitudes {
-        max-width: 100%;
-        padding: 15px;
-        margin: 15px auto;
+    .formulario-solicitud input,
+    .formulario-solicitud button {
+        font-size: 15px;
     }
 
-    #formularioSolicitud button,
-    .formulario-solicitud button,
-    .contenedor-btn button,
-    .enviar-correo button,
-    .limpiar-solicitudes button {
-        font-size: 16px;
-        padding: 10px;
-        width: 100%;
+    table {
+        overflow-x: auto;
+        display: block;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+
+    h1, .subTitulo-SM {
+        font-size: 18px;
+    }
+
+    .formulario-solicitud input,
+    .formulario-solicitud button {
+        font-size: 14px;
     }
 
     .contenedor-btn {
         flex-direction: column;
+        align-items: stretch;
     }
 
     .contenedor-btn button {
-        margin: 10px 0;
+        width: 100%;
+    }
+
+    label, select {
+        font-size: 14px;
     }
 }
