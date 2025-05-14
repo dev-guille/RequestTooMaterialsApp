@@ -126,6 +126,7 @@ const transporter = nodemailer.createTransport({
 
 // Ruta para enviar los datos de la tabla por correo
 router.post('/:id/enviar-correo', async (req, res) => {
+    const { id } = req.params;  // <-- Asegura esto
     const { solicitudes } = req.body;
 
     // Buscar el taller
@@ -252,7 +253,7 @@ router.post('/:id/enviar-correo', async (req, res) => {
         const mailOptions = {
             from: process.env.EMAIL_USER,  // Correo de origen
             //to: 'nelson.guillermo@outlook.com',   // Correo del encargado (puedes usar la variable que quieras)
-            to: taller.correoEncargado,
+            to: correo,
             subject: 'Datos de Solicitudes de Materiales',
             /* text: cuerpoCorreo */
             html: cuerpoCorreo // Aquí se utiliza el cuerpo con formato HTML
