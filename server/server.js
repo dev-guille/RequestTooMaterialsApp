@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 // Montar rutas para correos
 const correosRoutes = require('./routes/correos');
-app.use('/correo', correosRoutes);
+app.use('/api/correo', correosRoutes);
 
 // Importamos rutas
 const talleresRoutes = require('./routes/talleres');
