@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Ruta para enviar los datos de la tabla por correo
-router.post('/', async (req, res) => {
+router.post('/enviar', async (req, res) => {
     const { solicitudes } = req.body;
 
     try {
