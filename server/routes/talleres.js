@@ -128,12 +128,9 @@ const transporter = nodemailer.createTransport({
 router.post('/enviar-correo', async (req, res) => {
     const { solicitudes } = req.body;
 
-    /* if (!solicitudes || solicitudes.length === 0) {
+    if (!solicitudes || solicitudes.length === 0) {
         return res.status(400).json({ message: 'No se encontraron solicitudes para enviar.' });
-    } */
-
-    try {
-
+    }
 
     // Crear el cuerpo del correo con los datos de la tabla
     /* let cuerpoCorreo = 'Solicitudes de Materiales:\n\n';
@@ -246,19 +243,18 @@ router.post('/enviar-correo', async (req, res) => {
     // Configurar los datos del correo
     const mailOptions = {
         from: process.env.EMAIL_USER,  // Correo de origen
-        to: 'nelson.guillermo@outlook.com', 
-        //to: 'nelson.guillermo@outlook.com',   // Correo del encargado (puedes usar la variable que quieras)
+        to: 'nelson.guillermo@outlook.com',   // Correo del encargado (puedes usar la variable que quieras)
         subject: 'Datos de Solicitudes de Materiales',
         /* text: cuerpoCorreo */
         html: cuerpoCorreo // Aquí se utiliza el cuerpo con formato HTML
+
     };
-    
+
     // Enviar el correo
+    try {
         await transporter.sendMail(mailOptions);
         res.status(200).json({ message: 'Correo enviado correctamente' });
-    } 
-    
-    catch (error) {
+    } catch (error) {
         console.error('Error al enviar el correo:', error);
         res.status(500).json({ message: 'Hubo un error al enviar el correo', error: error.message });
     }
