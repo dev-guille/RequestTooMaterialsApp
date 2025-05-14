@@ -106,6 +106,7 @@ async function agregarSolicitud() {
 function enviarCorreo() {
     const filas = document.querySelectorAll('#tablaSolicitudes tbody tr');
     const datosTabla = [];
+    const tallerId = document.getElementById("taller").value;
 
     // Recorrer todas las filas de la tabla
     filas.forEach(fila => {
