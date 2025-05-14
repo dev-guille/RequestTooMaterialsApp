@@ -2,32 +2,24 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 
-
-// Configura el transporte de correo
+// Configurar el transporte de correo
 const transporter = nodemailer.createTransport({
-    service: 'outlook', // O el servicio que uses
+    service: 'outlook',
     auth: {
-        user: process.env.EMAIL_USER, // Correo de origen
-        pass: process.env.EMAIL_PASS, // Contraseña del correo de origen
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
     }
 });
 
 // Ruta para enviar los datos de la tabla por correo
-router.post('/enviar-correo', async (req, res) => {
+router.post('/enviar', async (req, res) => {
     const { solicitudes } = req.body;
 
-     try {
-
+    try {
         if (!solicitudes || !Array.isArray(solicitudes)) {
             return res.status(400).json({ message: 'No hay solicitudes para enviar' });
         }
 
-        // Crear el cuerpo del correo con los datos de la tabla
-        /* let cuerpoCorreo = 'Solicitudes de Materiales:\n\n';
-        solicitudes.forEach(solicitud => {
-            cuerpoCorreo += `Material: ${solicitud.material}\nCantidad: ${solicitud.cantidad}\nEstado: ${solicitud.estado}\n\n`;
-        }); */
-        // Crear el cuerpo del correo con los datos de la tabla en formato HTML
         // Crear el cuerpo del correo con los datos de la tabla en formato HTML
         let cuerpoCorreo = `
         <html>
@@ -109,12 +101,12 @@ router.post('/enviar-correo', async (req, res) => {
                     <tbody>`;
 
         solicitudes.forEach(solicitud => {
-        cuerpoCorreo += `
-            <tr>
-                <td>${solicitud.material}</td>
-                <td>${solicitud.cantidad}</td>
-                <td class="estado ${solicitud.estado.toLowerCase()}">${solicitud.estado}</td>
-            </tr>`;
+            cuerpoCorreo += `
+                <tr>
+                    <td>${solicitud.material}</td>
+                    <td>${solicitud.cantidad}</td>
+                    <td class="estado ${solicitud.estado.toLowerCase()}">${solicitud.estado}</td>
+                </tr>`;
         });
 
         cuerpoCorreo += `
@@ -126,24 +118,22 @@ router.post('/enviar-correo', async (req, res) => {
             </body>
         </html>`;
 
-
-    // Enviar el correo
-    
-         // Configurar los datos del correo
+        // Configurar los datos del correo
         const mailOptions = {
-            from: process.env.EMAIL_USER,  // Correo de origen
-            to: 'nelson.guillermo@outlook.com',   // Correo del encargado (puedes usar la variable que quieras)
-            //to: taller.correoEncargado,
+            from: process.env.EMAIL_USER,
+            to: 'nelson.guillermo@outlook.com',
             subject: 'Datos de Solicitudes de Materiales',
-            /* text: cuerpoCorreo */
-            html: cuerpoCorreo // Aquí se utiliza el cuerpo con formato HTML
-
+            html: cuerpoCorreo
         };
 
+        // Enviar el correo
         await transporter.sendMail(mailOptions);
         res.status(200).json({ message: 'Correo enviado correctamente' });
+
     } catch (error) {
         console.error('Error al enviar el correo:', error);
         res.status(500).json({ message: 'Hubo un error al enviar el correo', error: error.message });
     }
 });
+
+module.exports = router;
