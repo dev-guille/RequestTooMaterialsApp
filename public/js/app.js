@@ -104,7 +104,6 @@ async function agregarSolicitud() {
 
 // Función para enviar los datos de la tabla por correo
 function enviarCorreo() {
-    const tallerId = document.getElementById("taller").value;
     const filas = document.querySelectorAll('#tablaSolicitudes tbody tr');
     const datosTabla = [];
 
@@ -126,15 +125,13 @@ function enviarCorreo() {
 
     // Enviar los datos al backend para ser procesados y enviados por correo
     
-    fetch('https://requesttoomaterialsapp.onrender.com/api/talleres/enviar-correo', { 
+    fetch('https://requesttoomaterialsapp.onrender.com/api/talleres/67f9697eb8e97e9fb3b3650b/enviar-correo', { 
     //fetch('http://localhost:3000/api/talleres/enviar-correo', {  // Usa localhost:3000, no 127.0.0.1:5500
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ 
-            id: tallerId,
-            solicitudes: datosTabla })
+        body: JSON.stringify({ solicitudes: datosTabla })
     })
     .then(response => response.json())
     .then(data => {
