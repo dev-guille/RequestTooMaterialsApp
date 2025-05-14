@@ -125,6 +125,7 @@ function enviarCorreo() {
 
       // Obtener ID del taller seleccionado
         const tallerId = document.getElementById('taller').value;
+        console.log(tallerId);
 
     // Enviar los datos al backend para ser procesados y enviados por correo
     
