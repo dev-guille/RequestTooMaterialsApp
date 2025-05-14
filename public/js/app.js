@@ -1,4 +1,5 @@
-const API_URL = 'http://localhost:3000/api/talleres';
+const API_URL = 'https://requesttoomaterialsapp.onrender.com//api/talleres';
+//const API_URL = 'http://localhost:3000/api/talleres';
 
 document.addEventListener("DOMContentLoaded", () => {
     cargarTalleres();
