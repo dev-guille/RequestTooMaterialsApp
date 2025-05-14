@@ -125,8 +125,8 @@ function enviarCorreo() {
 
     // Enviar los datos al backend para ser procesados y enviados por correo
     
-    //fetch('https://requesttoomaterialsapp.onrender.com/api/talleres/enviar-correo', { 
-    fetch('http://localhost:3000/api/talleres/enviar-correo', {  // Usa localhost:3000, no 127.0.0.1:5500
+    fetch('https://requesttoomaterialsapp.onrender.com/api/talleres/enviar-correo', { 
+    //fetch('http://localhost:3000/api/talleres/enviar-correo', {  // Usa localhost:3000, no 127.0.0.1:5500
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

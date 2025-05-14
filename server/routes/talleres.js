@@ -125,11 +125,20 @@ const transporter = nodemailer.createTransport({
 });
 
 // Ruta para enviar los datos de la tabla por correo
-router.post('/enviar-correo', async (req, res) => {
+router.post('/:id/enviar-correo', async (req, res) => {
     const { solicitudes } = req.body;
 
-    if (!solicitudes || solicitudes.length === 0) {
-        return res.status(400).json({ message: 'No se encontraron solicitudes para enviar.' });
+    // Buscar el taller
+        const taller = await Taller.findById(id);
+        if (!taller) {
+            return res.status(404).json({ message: 'Taller no encontrado' });
+        }
+
+        // Obtener el encargado directamente del taller
+        const correo = taller.correoEncargado;
+
+    if (!solicitudes || !Array.isArray(solicitudes)) {
+        return res.status(400).json({ message: 'No hay solicitudes para enviar' });
     }
 
     // Crear el cuerpo del correo con los datos de la tabla
@@ -237,21 +246,19 @@ router.post('/enviar-correo', async (req, res) => {
         </html>`;
 
 
-
-
-
-    // Configurar los datos del correo
-    const mailOptions = {
-        from: process.env.EMAIL_USER,  // Correo de origen
-        to: 'nelson.guillermo@outlook.com',   // Correo del encargado (puedes usar la variable que quieras)
-        subject: 'Datos de Solicitudes de Materiales',
-        /* text: cuerpoCorreo */
-        html: cuerpoCorreo // Aquí se utiliza el cuerpo con formato HTML
-
-    };
-
     // Enviar el correo
     try {
+         // Configurar los datos del correo
+        const mailOptions = {
+            from: process.env.EMAIL_USER,  // Correo de origen
+            //to: 'nelson.guillermo@outlook.com',   // Correo del encargado (puedes usar la variable que quieras)
+            to: correo,
+            subject: 'Datos de Solicitudes de Materiales',
+            /* text: cuerpoCorreo */
+            html: cuerpoCorreo // Aquí se utiliza el cuerpo con formato HTML
+
+        };
+
         await transporter.sendMail(mailOptions);
         res.status(200).json({ message: 'Correo enviado correctamente' });
     } catch (error) {
