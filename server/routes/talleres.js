@@ -125,15 +125,10 @@ const transporter = nodemailer.createTransport({
 });
 
 // Ruta para enviar los datos de la tabla por correo
-router.post('/:id/enviar-correo', async (req, res) => {
-    const tallerId = req.params.id;
+router.post('/enviar-correo', enviarCorreo, async (req, res) => {
     const { solicitudes } = req.body;
 
      try {
-        const taller = await Taller.findById(tallerId);
-        if (!taller) {
-            return res.status(404).json({ message: 'Taller no encontrado' });
-        }
 
     if (!solicitudes || !Array.isArray(solicitudes)) {
         return res.status(400).json({ message: 'No hay solicitudes para enviar' });
