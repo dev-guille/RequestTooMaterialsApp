@@ -163,7 +163,7 @@ router.get('/', async (req, res) => {
 });
 
 // Obtener un solo taller por su ID
-router.get('/:id', async (req, res) => {
+/* router.get('/:id', async (req, res) => {
     try {
         const taller = await Taller.findById(req.params.id);
         if (!taller) {
@@ -177,7 +177,7 @@ router.get('/:id', async (req, res) => {
         }
         res.status(500).json({ message: 'Error al obtener el taller', error: error.message });
     }
-});
+}); */
 
 // Crear un nuevo taller
 router.post('/', async (req, res) => {
