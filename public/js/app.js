@@ -123,8 +123,13 @@ function enviarCorreo() {
         return;
     }
 
-      // Obtener ID del taller seleccionado
-        //const tallerId = document.getElementById('taller').value;
+
+      // ✅ Obtener ID del taller desde un <select id="taller">
+    const tallerId = document.getElementById('taller').value;
+    if (!tallerId) {
+        alert("Selecciona un taller antes de enviar.");
+        return;
+    }
 
     // Enviar los datos al backend para ser procesados y enviados por correo
     
@@ -134,7 +139,10 @@ function enviarCorreo() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ solicitudes: datosTabla })
+        body: JSON.stringify({ 
+            idTaller: tallerId,
+            solicitudes: datosTabla 
+        })
     })
     .then(response => response.json())
     .then(data => {
