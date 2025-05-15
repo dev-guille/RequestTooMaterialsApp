@@ -130,6 +130,9 @@ function enviarCorreo() {
         alert("Selecciona un taller antes de enviar.");
         return;
     }
+    else{
+        alert("Selecciona un taller antes de enviar. "+ tallerId);
+    }
 
     // Enviar los datos al backend para ser procesados y enviados por correo
     
