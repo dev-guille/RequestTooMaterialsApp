@@ -121,7 +121,6 @@ router.post('/enviar', async (req, res) => {
         // Configurar los datos del correo
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            //to: 'nelson.guillermo@outlook.com',
             to: emailDestino,
             subject: 'Datos de Solicitudes de Materiales',
             html: cuerpoCorreo
