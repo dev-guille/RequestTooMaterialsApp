@@ -17,6 +17,7 @@ async function cargarTalleres() {
         if (selectTaller.value) mostrarSolicitudes(selectTaller.value);
         else {
             document.getElementById("encargadoTaller").textContent = '';
+            document.getElementById("correoEncargado").textContent = '';
             document.querySelector("#tablaSolicitudes tbody").innerHTML = '';
         }
     });
@@ -27,6 +28,7 @@ async function mostrarSolicitudes(tallerId) {
     const taller = await res.json();
 
     document.getElementById("encargadoTaller").textContent = taller.nombreEncargado;
+    document.getElementById("correoEncargado").textContent = taller.correoEncargado;
 
     const tbody = document.querySelector("#tablaSolicitudes tbody");
 
@@ -106,8 +108,8 @@ async function agregarSolicitud() {
 function enviarCorreo() {
     const filas = document.querySelectorAll('#tablaSolicitudes tbody tr');
     const datosTabla = [];
-    const emailDestino = prompt("Ingrese el correo al que desea enviar los datos:");
-
+    /* const emailDestino = prompt("Ingrese el correo al que desea enviar los datos:"); */
+    const emailDestino = document.getElementById("correoEncargado").textContent.trim();
 
     // Recorrer todas las filas de la tabla
     filas.forEach(fila => {
@@ -130,7 +132,8 @@ function enviarCorreo() {
 
     // Enviar los datos al backend para ser procesados y enviados por correo
     
-    fetch('https://requesttoomaterialsapp.onrender.com/api/correo/enviar', {
+    //fetch('https://requesttoomaterialsapp.onrender.com/api/correo/enviar', {
+        fetch('http://localhost:3000/api/correo/enviar', {
     //fetch('http://localhost:3000/api/correo/enviar', {  // Usa localhost:3000, no 127.0.0.1:5500
         method: 'POST',
         headers: {
@@ -142,7 +145,7 @@ function enviarCorreo() {
     })
     .then(response => response.json())
     .then(data => {
-        alert('Datos enviados por correo correctamente');
+        alert('Datos enviados por correo correctamente' );
     })
     .catch(error => {
         console.error('Error al enviar los datos por correo:', error);
