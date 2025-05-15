@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
-const Taller = require('../models/taller');
 
 // Configurar el transporte de correo
 const transporter = nodemailer.createTransport({
@@ -14,17 +13,9 @@ const transporter = nodemailer.createTransport({
 
 // Ruta para enviar los datos de la tabla por correo
 router.post('/enviar', async (req, res) => {
-    const { idTaller, solicitudes } = req.body;
+    const { solicitudes } = req.body;
 
     try {
-        // Buscar el taller en la base de datos
-        const taller = await Taller.findById(idTaller);
-        if (!taller) {
-            return res.status(404).json({ message: 'Taller no encontrado' });
-        }
-
-        const correoEnviar = taller.correoEncargado;
-
         if (!solicitudes || !Array.isArray(solicitudes)) {
             return res.status(400).json({ message: 'No hay solicitudes para enviar' });
         }
@@ -130,8 +121,7 @@ router.post('/enviar', async (req, res) => {
         // Configurar los datos del correo
         const mailOptions = {
             from: process.env.EMAIL_USER,
-            //to: 'nelson.guillermo@outlook.com',
-            to: correoEnviar,
+            to: 'nelson.guillermo@outlook.com',
             subject: 'Datos de Solicitudes de Materiales',
             html: cuerpoCorreo
         };

@@ -106,6 +106,8 @@ async function agregarSolicitud() {
 function enviarCorreo() {
     const filas = document.querySelectorAll('#tablaSolicitudes tbody tr');
     const datosTabla = [];
+    const emailDestino = prompt("Ingrese el correo al que desea enviar los datos:");
+
 
     // Recorrer todas las filas de la tabla
     filas.forEach(fila => {
@@ -123,16 +125,8 @@ function enviarCorreo() {
         return;
     }
 
-
-      // ✅ Obtener ID del taller desde un <select id="taller">
-    const tallerId = document.getElementById('taller').value;
-    if (!tallerId) {
-        alert("Selecciona un taller antes de enviar.");
-        return;
-    }
-    else{
-        alert("Selecciona un taller antes de enviar. "+ tallerId);
-    }
+      // Obtener ID del taller seleccionado
+        //const tallerId = document.getElementById('taller').value;
 
     // Enviar los datos al backend para ser procesados y enviados por correo
     
@@ -143,9 +137,8 @@ function enviarCorreo() {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ 
-            idTaller: tallerId,
-            solicitudes: datosTabla 
-        })
+            solicitudes: datosTabla,
+            emailDestino: emailDestino })
     })
     .then(response => response.json())
     .then(data => {
